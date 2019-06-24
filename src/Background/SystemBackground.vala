@@ -25,10 +25,17 @@ namespace Gala
 
 		public signal void loaded ();
 
+#if HAS_MUTTER330
+		public SystemBackground (Meta.Display display)
+		{
+			Object (meta_display: display, monitor: 0);
+		}
+#else
 		public SystemBackground (Meta.Screen screen)
 		{
 			Object (meta_screen: screen, monitor: 0);
 		}
+#endif
 
 		construct
 		{
@@ -39,7 +46,11 @@ namespace Gala
 			}
 
 			if (system_background == null) {
+#if HAS_MUTTER330
+				system_background = new Meta.Background (meta_display);
+#else
 				system_background = new Meta.Background (meta_screen);
+#endif
 				system_background.set_color (DEFAULT_BACKGROUND_COLOR);
 				system_background.set_file (background_file, GDesktop.BackgroundStyle.WALLPAPER);
 			}

@@ -324,7 +324,11 @@ namespace Gala
 		 */
 		void close ()
 		{
+#if HAS_MUTTER330
+			var time = workspace.get_display ().get_current_time ();
+#else
 			var time = workspace.get_screen ().get_display ().get_current_time ();
+#endif
 			foreach (var window in workspace.list_windows ()) {
 				var type = window.window_type;
 				if (!window.is_on_all_workspaces () && (type == WindowType.NORMAL
@@ -391,13 +395,30 @@ namespace Gala
 
 			// it's not safe to to call meta_workspace_index() here, we may be still animating something
 			// while the workspace is already gone, which would result in a crash.
+#if HAS_MUTTER330
+			unowned Meta.WorkspaceManager manager = workspace.get_display ().get_workspace_manager ();
+			int workspace_index = 0;
+			for (int i = 0; i < manager.get_n_workspaces (); i++) {
+			    if (manager.get_workspace_by_index (i) == workspace) {
+			        workspace_index = i;
+			        break;
+			    }
+			}
+#else
 			var screen = workspace.get_screen ();
 			var workspace_index = screen.get_workspaces ().index (workspace);
+#endif
 
 			if (n_windows < 1) {
+#if HAS_MUTTER330
+				if (!Prefs.get_dynamic_workspaces ()
+					|| workspace_index != manager.get_n_workspaces () - 1)
+					return false;
+#else
 				if (!Prefs.get_dynamic_workspaces ()
 					|| workspace_index != screen.get_n_workspaces () - 1)
 					return false;
+#endif
 
 				var buffer = new Granite.Drawing.BufferSurface (SIZE * scale, SIZE * scale);
 				var offset = (SIZE * scale) / 2 - (PLUS_WIDTH * scale) / 2;

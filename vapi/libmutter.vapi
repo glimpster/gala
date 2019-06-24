@@ -112,8 +112,12 @@ namespace Meta {
 		[CCode (cheader_filename = "meta/main.h", cname = "meta_debug_spew_real")]
 		public static void debug_spew_real (string format, ...);
 #if HAS_MUTTER330
+	    [CCode (cheader_filename = "meta/main.h", cname = "meta_disable_unredirect_for_display")]
+	    public static void disable_unredirect_for_display (Meta.Display display);
 		[CCode (cheader_filename = "meta/compositor-mutter.h", cname = "meta_empty_stage_input_region")]
-		public static void empty_stage_input_region (Meta.Display display);
+	    public static void empty_stage_input_region (Meta.Display display);
+	    [CCode (cheader_filename = "meta/main.h", cname = "meta_enable_unredirect_for_display")]
+	    public static void enable_unredirect_for_display (Meta.Display display);
 #else
 		[CCode (cheader_filename = "meta/main.h", cname = "meta_disable_unredirect_for_screen")]
 		public static void disable_unredirect_for_screen (Meta.Screen screen);
@@ -1194,6 +1198,8 @@ namespace Meta {
 		public int get_damage_event_base ();
 		public int get_screen_number ();
 		public int get_shape_event_base ();
+		public unowned X.Display get_xdisplay ();
+		public unowned X.Window get_xroot ();
 		public bool has_shape ();
 		public void set_cm_selection ();
 		public void set_input_focus_window (Meta.Window window, bool focus_frame, uint32 timestamp);
@@ -1869,12 +1875,6 @@ namespace Meta {
 	public static bool activate_session ();
  	[CCode (cheader_filename = "meta/main.h")]
 	public static void clutter_init ();
-#if HAS_MUTTER330
-	[CCode (cheader_filename = "meta/main.h")]
-	public static void disable_unredirect_for_display (Meta.Display display);
-	[CCode (cheader_filename = "meta/main.h")]
-	public static void enable_unredirect_for_display (Meta.Display display);
-#endif
 	[CCode (cheader_filename = "meta/main.h")]
 	public static void exit (Meta.ExitCode code);
 	[CCode (cheader_filename = "meta/main.h")]

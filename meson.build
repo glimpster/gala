@@ -247,7 +247,7 @@ if mutter330_dep.found()
 		'-DCOGL_ENABLE_EXPERIMENTAL_API', '-DCOGL_ENABLE_EXPERIMENTAL_2_0_API'], language: 'c')
 endif
 
-mutter332_dep = dependency('libmutter-4', version: ['>= 3.31.2', '< 3.33'], required: false)
+mutter332_dep = dependency('libmutter-4', version: ['>= 3.31.2', '< 3.34'], required: false)
 if mutter332_dep.found()
 	mutter_packages_command = [
 		'--pkg', 'libmutter-4',

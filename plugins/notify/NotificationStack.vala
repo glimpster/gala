@@ -29,12 +29,21 @@ namespace Gala.Plugins.Notify
 
 		public signal void animations_changed (bool running);
 
+#if HAS_MUTTER330
+		public Meta.Display display { get; construct; }
+
+		public NotificationStack (Meta.Display display)
+		{
+			Object (display: display);
+		}
+#else
 		public Screen screen { get; construct; }
 
 		public NotificationStack (Screen screen)
 		{
 			Object (screen: screen);
 		}
+#endif
 
 		construct
 		{
