@@ -195,9 +195,9 @@ namespace Gala
 #else
 			var system_background = new SystemBackground (screen);
 #endif
-			system_background.add_constraint (new Clutter.BindConstraint (stage,
+			system_background.actor.add_constraint (new Clutter.BindConstraint (stage,
 				Clutter.BindCoordinate.ALL, 0));
-			stage.insert_child_below (system_background, null);
+			stage.insert_child_below (system_background.actor, null);
 
 			ui_group = new Clutter.Actor ();
 			ui_group.reactive = true;

@@ -41,9 +41,9 @@ namespace Gala
 			Meta.MonitorManager.@get ().monitors_changed.disconnect (update);
 		}
 #else
-		public Screen screen { get; construct; }
+		public Meta.Screen screen { get; construct; }
 
-		public BackgroundContainer (Screen screen)
+		public BackgroundContainer (Meta.Screen screen)
 		{
 			Object (screen: screen);
 		}
