@@ -57,9 +57,11 @@ namespace Gala
 #endif
 
 			background_actor = create_background_actor ();
+
+			destroy.connect (on_destroy);
 		}
 
-		public override void destroy ()
+		void on_destroy ()
 		{
 			BackgroundCache.get_default ().release_background_source (BACKGROUND_SCHEMA);
 			background_source = null;
@@ -73,8 +75,6 @@ namespace Gala
 				background_actor.destroy ();
 				background_actor = null;
 			}
-
-			base.destroy ();
 		}
 
 		void swap_background_actor ()

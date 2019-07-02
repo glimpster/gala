@@ -58,11 +58,7 @@ namespace Gala.Plugins.MaskCorners
 			if (!settings.enable)
 				return;
 
-#if HAS_MUTTER326
-			var scale = Meta.Backend.get_backend ().get_settings ().get_ui_scaling_factor ();
-#else
-			var scale = 1;
-#endif
+			var scale = Utils.get_ui_scaling_factor ();
 
 #if HAS_MUTTER330
 			int n_monitors = display.get_n_monitors ();
