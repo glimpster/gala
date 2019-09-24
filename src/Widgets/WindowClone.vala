@@ -124,6 +124,7 @@ namespace Gala
 		Actor close_button;
 		Actor active_shape;
 		Actor window_icon;
+		Clutter.Text window_label;
 
 		public WindowClone (Meta.Window window, bool overview_mode = false)
 		{
@@ -172,6 +173,10 @@ namespace Gala
 			window_icon.opacity = 0;
 			window_icon.set_pivot_point (0.5f, 0.5f);
 
+			window_label = new Clutter.Text ();
+			window_label.set_text (window.title);
+			window_label.set_font_name ("17px");
+
 			active_shape = new Clutter.Actor ();
 			active_shape.background_color = { 255, 255, 255, 200 };
 			active_shape.opacity = 0;
@@ -179,6 +184,7 @@ namespace Gala
 			add_child (active_shape);
 			add_child (window_icon);
 			add_child (close_button);
+			add_child (window_label);
 
 			load_clone ();
 		}
@@ -227,6 +233,7 @@ namespace Gala
 			set_child_below_sibling (active_shape, clone);
 			set_child_above_sibling (close_button, clone);
 			set_child_above_sibling (window_icon, clone);
+			set_child_above_sibling (window_label, clone);
 
 			transition_to_original_state (false);
 
@@ -430,6 +437,9 @@ namespace Gala
 
 				window_icon.restore_easing_state ();
 			}
+
+			window_label.set_position ((dest_width - window_label.width) / 2, dest_height + WINDOW_ICON_SIZE / 3);
+
 		}
 
 		void toggle_shadow (bool show)
